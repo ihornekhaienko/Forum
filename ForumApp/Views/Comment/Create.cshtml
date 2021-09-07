@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Create Comment";
+}
+@model ForumApp.ViewModels.Comment.CommentViewModel
+
+<div class="container body-content">
+    <div class="row sectionHeader" style="display:block;">
+        <div class="sectionHeading">
+            Comment | @Model.ThreadTitle
+            <div class="channelLogo" style="background-image: url(@Model.ChannelImageLink); background-size:100%"></div>
+            <span id="headingBtn"><a asp-controller="Channel" asp-action="Topic" asp-route-id="@Model.ChannelId" class="btn btn-back">Back to @Model.ChannelName</a></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="commentOriginalThread">
+            <h3>
+                @Model.ThreadTitle
+            </h3>
+            <p>
+                @Model.ThreadContent
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="authorBlock">
+                You're submitting this Comment as <span class="authorBlockName">@Model.AuthorName</span>
+            </div>
+            <form asp-action="Create" method="post" id="addThreadForm">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CommentContent">Thread Content</label>
+                    <textarea asp-for="CommentContent" rows="20" class="form-control" placeholder="Write your comment here."></textarea>
+                    <span asp-validation-for="CommentContent" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success">Post Comment</button>
+                <input asp-for="AuthorId" type="hidden" />
+                <input asp-for="ThreadId" type="hidden" />
+                <input asp-for="ChannelName" type="hidden" />
+                <input asp-for="ChannelId" type="hidden" />
+            </form>
+        </div>
+    </div>
+</div>

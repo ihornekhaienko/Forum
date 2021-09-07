@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Channels";
+}
+
+@model ForumApp.ViewModels.Channel.ChannelIndexModel
+
+<div class="container body-content">
+    <div class="row sectionHeader">
+        <div class="sectionHeading">Browse Channels</div>
+        <div class="sectionDescription">
+            <p>Welcome to <strong>Simple Forum community</strong>. Posts are broadly categorized into separate forums by programming language or area of interest.</p>
+            <p>
+                Please read the Forum Guidelines before creating a new post.
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <span>You must be a <a asp-controller="Account" asp-action="Register">registered member</a> to create a new thread.</span>
+                }
+            </p>
+        </div>
+    </div>
+    <div class="row" id="channelIndexContent">
+        <table class="table table-hover" id="channelIndexTable">
+            <tbody>
+                @foreach (var channel in Model.Channels)
+                {
+                    <tr>
+                        <td>
+                            <div class="channelLogo" style="background-image: url(@channel.ImageLink); background-size:100%"></div>
+                            <div class="channelData">
+                                <div class="channelTitle">
+                                    <a asp-controller="Channel" asp-action="Topic" asp-route-id="@channel.Id">@channel.Title</a>
+                                </div>
+                                <div class="channelSubTitle">
+                                    @if (channel.HasRecentPost)
+                                    {
+                                        <div class="hasRecentPost">Hot</div>
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="channelThreadCount">
+                                @channel.ThreadCount Threads
+                            </div>
+                            <div class="channelMemberCount">
+                                @channel.UserCount Users
+                            </div>
+                        </td>
+                        <td>
+                            <div class="channelDescription">
+                                @channel.Description
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

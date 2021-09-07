@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ForumApp.Models.ApplicationUser> userManager
+@inject SignInManager<ForumApp.Models.ApplicationUser> signInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Simple Forum</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index">
+                    <img border="0" alt="Logo" src="~/images/logo.png" width="50" height="50">
+                </a><!--Logo-->
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item active">
+                            <a class="nav-link text-light" asp-controller="Home" asp-action="Index">Forum</a>
+                        </li><!--Home-->
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light" href="#" data-toggle="dropdown" role="button">Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">Profile</li>
+                                    <li class="dropdown-item">
+                                        <a class="text-dark" asp-controller="Profile" asp-action="Detail" asp-route-id="@userManager.GetUserId(User)">My Profile</a>
+                                    </li><!--My Profile-->
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header">Admin</li>
+                                        <li class="dropdown-item">
+                                            <a class="text-dark" asp-controller="Channel" asp-action="Create">Create Channel</a>
+                                        </li><!-- Create Channel-->
+                                        <li class="dropdown-item">
+                                            <a class="text-dark" asp-controller="Profile" asp-action="Index">Users</a>
+                                        </li><!--Users-->
+                                    }
+                                </ul>
+                            </li>
+                        }<!--Settings-->
+                    </ul>
+
+                    <partial name="_LoginPartial" /><!--Account-->
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="bg-dark footer">
+            <div class="container text-light">
+                <span style="vertical-align:middle">
+                    &copy; 2021 - Simple Forum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

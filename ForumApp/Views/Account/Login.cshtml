@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+@model ForumApp.ViewModels.Account.LoginViewModel
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<div class="container body-content">
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Sign in</h4>
+
+            <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input asp-for="UserName" class="form-control" placeholder="User name" type="text">
+                    <span asp-validation-for="UserName" class="text-danger account-span"></span>
+                </div> <!-- Username -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input asp-for="Password" class="form-control" placeholder="Type password" type="password">
+                    <span asp-validation-for="Password" class="text-danger account-span"></span>
+                </div> <!-- Password -->
+
+                <div class="form-group input-group">
+
+                    <div class="form-check" style="margin-left: auto; margin-right: auto;">
+                        <label class="form-check-label">
+                            <input asp-for="RememberMe" type="checkbox" class="form-check-input">Remember me?
+                        </label>
+                    </div>
+                </div> <!-- Remember me -->
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Sign in </button>
+                </div> <!-- Sign up -->
+
+                <div class="form-group">
+                    <p class="text-center">
+                        <a asp-action="Forgot">Forgot your password?</a>
+                    </p>
+                    <p class="text-center">
+                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                    </p>
+                </div>
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
+<!--container end.//-->
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

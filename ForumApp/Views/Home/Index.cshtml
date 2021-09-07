@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model ForumApp.ViewModels.Home.IndexViewModel
+
+<div class="container body-content">
+    <div class="row frontPageSplash">
+        <div class="col-md-6 frontPageLearn">
+            <div class="frontPageHeading">Welcome to the Simple Forum</div>
+            <p class="frontPageSubHeading">Simple Forum is the world's fastest growing forum.</p>
+            <div>
+                <form asp-controller="Search" asp-action="Search" method="post">
+                    <input asp-for="Query" type="text" class="homeSearch" placeholder="Search..." />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img border="0" alt="Logo" src="~/images/logo.png" width="350" height="350">
+        </div>
+    </div>
+    <div class="row frontPageContent">
+        <h3 id="latestThreads">Latest Threads</h3>
+        <table class="table table-hover" id="latestThreadsTable">
+            <tbody>
+                @foreach (var thread in Model.Threads)
+                {
+                    <tr>
+                        <td>
+                            <div class="channelLogo" style="background-image: url(@thread.ChannelImageLink); background-size:100%"></div>
+                            <div class="threadTitle">
+                                <a asp-controller="Thread" asp-action="Index" asp-route-id="@thread.Id">
+                                    @thread.Title
+                                </a>
+                            </div>
+                            <div class="threadSubTitle">
+                                @if (thread.CommentsCount == 1)
+                                {
+                                    <span>@thread.CommentsCount Comment</span>
+                                }
+                                @if (thread.CommentsCount == 0)
+                                {
+                                    <span>No Comments</span>
+                                }
+                                else
+                                {
+                                    <span>@thread.CommentsCount Comments</span>
+                                }
+                                | <span class="threadUser"><a asp-controller="Profile" asp-action="Detail" asp-route-id="@thread.AuthorId">@thread.AuthorName</a></span> in <span class="threadChannel"><a asp-controller="Channel" asp-action="Topic" asp-route-id="@thread.ChannelId"></a>@thread.ChannelName</span> on <span class="postDate">@thread.Posted</span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

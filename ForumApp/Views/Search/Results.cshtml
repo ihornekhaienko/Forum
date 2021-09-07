@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Results";
+}
+
+@model ForumApp.ViewModels.Search.SearchViewModel
+
+<div class="container body-content">
+    <div class="row sectionHeader">
+        <div class="sectionHeading">
+            <span id="results">Results for: @Model.Query</span>
+            <form asp-controller="Search" asp-action="Search" method="post">
+                <div class="searchForm">
+                    <input asp-for="Query" type="text" placeholder="Search..." class="searchBar" onfocus="clearThis(this)">
+                    <button type="submit" class="btn buttonSearch">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (Model.Threads.Any())
+    {
+        <div class="row" id="channelIndexContent">
+            <table class="table table-hover table-bordered" id="channelIndexTable">
+                <tbody>
+                    @foreach (var thread in Model.Threads)
+                    {
+                        <tr>
+                            <td>
+                                <div class="channelLogo" style="background-image: url(@thread.ChannelImageLink); background-size:100%"></div>
+                                <div class="threadData">
+                                    <div class="threadTitle">
+                                        <a asp-controller="Post" asp-action="Index" asp-route-id="@thread.Id">@thread.Title</a>
+                                    </div>
+                                    <div class="channelSubTitle">
+                                        <div>
+                                            by:
+                                            <span class="threadAuthor">
+                                                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@thread.AuthorId">
+                                                    @thread.AuthorName
+                                                </a>
+                                            </span>
+                                            in:
+                                            <span class="threadChannel">
+                                                <a asp-controller="Forum" asp-action="Topic" asp-route-id="@thread.ChannelId">@thread.ChannelName</a>
+                                            </span>
+                                            on:
+                                            <span class="threadDate">
+                                                @thread.Posted
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="channelThreadCount">
+                                    Comments: @thread.CommentsCount
+                                </div>
+                            </td>
+                            <td>
+                                <div class="postDate">@thread.Posted</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <div class="noThreads">
+            <i class="material-icons md-72">question_answer</i>
+            <h3>
+                No search results found for @Model.Query! <br />
+            </h3>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+    </script>
+}

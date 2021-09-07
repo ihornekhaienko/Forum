@@ -1,0 +1,509 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+main {
+    padding-bottom: 90px;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+/* Navbar */
+.navbar li {
+    font-weight: bold;
+}
+
+/* Heading */
+.sectionHeader {
+    background-color: rgba(0,0,0,0.9);
+    padding: 8px 0 24px 24px;
+}
+
+.sectionHeading {
+    color: white;
+    font-size: 1.3em;
+    padding: 16px 0 16px 0;
+    margin-bottom: 12px;
+}
+
+.threadHeading {
+    color: white;
+    font-size: 1.1em;
+    padding: 16px 0 16px 0;
+}
+
+.sectionInfo {
+    height: 400px;
+    background-color: white;
+}
+
+/* Front page heading */
+.frontPageSplash {
+    text-align: center;
+    background-color: #006381;
+    background-repeat: no-repeat;
+    height: auto;
+    padding: 20px;
+}
+
+.frontPageLearn {
+    text-align: center;
+    opacity: 1;
+    color: gainsboro;
+}
+
+.frontPageHeading {
+    text-align: center;
+    font-size: 3.2em;
+}
+
+.frontPageSubHeading {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.sectionDescription {
+    color: #EEE;
+}
+
+.frontPageTopContainer {
+    padding: 40px 80px 42px 40px;
+    border: 1px solid #999;
+    background-color: #2569D5;
+}
+
+/* Search */
+.homeSearch {
+    margin-top: 8px;
+    background: rgba(0,0,0,0.1);
+    padding: 8px;
+    border: 0px;
+    height: 1.8em;
+    font-size: 2.1em;
+    font-weight: bold;
+    transition: ease-in 0.2s;
+}
+
+    .homeSearch:focus {
+        border: none !important;
+        outline: none !important;
+        transition: ease-in 0.2s;
+        color: white;
+        background-color: rgba(0,0,0,0.7);
+        box-shadow: 0 5px 4px -6px #000;
+    }
+
+/* Front page content */
+.frontPageContent {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 16px;
+}
+
+
+#latestThreads {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin: 4px 0 16px 0;
+}
+
+/* Thread Page */
+.threadTitle {
+    font-weight: bold;
+}
+
+.threadSubTitle {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.threadData {
+    display: inline-block;
+}
+
+.threadDate {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.threadLogo {
+    display: inline-block;
+    border-radius: 3px;
+    margin-right: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: #ddd;
+}
+
+.threadAuthorImage {
+    background-size: 100%;
+    height: 80px;
+    width: 80px;
+}
+
+.threadAuthorContainer {
+    padding: 12px;
+    color: #444;
+    width: 190px;
+}
+
+.threadIndexTitle {
+    font-size: 1.4em;
+}
+
+#threadContentContainer {
+    color: #222;
+    padding: 22px;
+    border-left: 1px solid #ddd;
+}
+
+#threadIndexContent {
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.3)
+}
+
+/* Channel Index */
+
+#channelIndexTable td {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+#channelIndexTable tr:hover {
+    background-color: rgba(0, 116, 238, 1);
+}
+
+.channelData {
+    display: inline-block;
+}
+
+.channelTitle {
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.channelSubTitle {
+    color: #888;
+    font-family: 'Roboto Mono';
+    font-size: 0.8em;
+}
+
+.channelDescription {
+    color: #555;
+    font-family: 'Roboto';
+}
+
+.channelLogo {
+    border-radius: 3px;
+    float: left;
+    margin-right: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: #ddd;
+    border: 1px solid #555;
+    background-size: 100%
+}
+
+.threadAuthorImage {
+    background: 100%;
+    height: 80px;
+    width: 80px;
+}
+
+.threadAuthorContainer {
+    padding: 12px;
+    color: #444;
+    width: 190px;
+}
+
+.threadIndexTitle {
+    font-size: 1.4em;
+}
+
+#threadContentContainer {
+    color: #222;
+    padding: 22px;
+    border-left: 1px solid #ddd;
+}
+
+#threadIndexContainer {
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.3)
+}
+
+.threadHeader {
+    background-color: #212121;
+    padding: 8px 0px 24px 24px;
+}
+
+#commentDivider {
+    height: 2px;
+    margin-bottom: 12px;
+}
+
+.channelThreadCount {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.channelMemberCount {
+    color: #888;
+    font-size: 0.9em;
+}
+
+#channelIndexContent {
+    padding-bottom: 60px;
+    background-color: white;
+}
+
+.noThreads {
+    text-align: center;
+    padding-top: 30px;
+}
+
+/* Thread */
+.createThreadSection {
+    background-color: #fff;
+    padding: 24px;
+}
+
+.authorBlock {
+    padding: 18px;
+    border: 1px dashed #00AFCF;
+    margin-bottom: 8px;
+}
+
+.noBorder {
+    border: none;
+}
+
+#originalThread {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 8px;
+}
+
+.hasRecentThread {
+    padding: 2px;
+    background-color: #FE552F;
+    color: #fff;
+    text-align: center;
+    border-radius: 1px;
+    width: 30px;
+}
+
+/* Button */
+.btn-back {
+    background-color: #555;
+    color: #fff !important;
+    transition: ease-in 0.1s;
+    border-radius: 0px !important;
+}
+
+    .btn-back:hover {
+        transition: ease-in 0.1s;
+        background-color: #1E88E5 !important;
+    }
+
+.btn-newComment {
+    background-color: #5C6BC0 !important;
+    color: #fff !important;
+    transition: ease-in 0.1s;
+    border-radius: 0px !important;
+}
+
+    .btn-newComment:hover {
+        transition: ease-in 0.1s;
+        background-color: #9FA8DA !important;
+    }
+
+.btn-file {
+    width: 100%;
+    background-color: #4FC3F7;
+    color: white;
+    transition: ease 0.3s;
+}
+
+    .btn-file:hover {
+        transition: ease 0.3s;
+        background-color: #039BE5;
+    }
+
+.btn-newThread {
+    background-color: #C62828 !important;
+    color: #fff !important;
+    transition: ease-in 0.1s;
+    border-radius: 0px !important;
+}
+
+    .btn-newThread:hover {
+        transition: ease-in 0.1s;
+        background-color: #E53935 !important;
+        color: #fff !important;
+    }
+
+.btn-submitThread {
+    background-color: #00695C !important;
+    color: #fff !important;
+    transition: ease-in 0.1s;
+    border-radius: 0px !important;
+}
+
+    .btn-submitThread:hover {
+        transition: ease-in 0.1s;
+        background-color: #00897B !important;
+        color: #fff !important;
+    }
+
+.btn-channelSearch {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+}
+
+#headingBtn {
+    float: right;
+    margin-right: 20px;
+}
+
+/* Topic Page */
+.searchBar {
+    padding: 3px 5px 2px 12px;
+    margin: 8px;
+    background-color: #333;
+    transition: ease 0.3s;
+    border: none;
+}
+
+    .searchBar:focus {
+        color: black;
+        background-color: #fff;
+    }
+
+/* Profile */
+.userProfile {
+    padding: 32px 0 64px 24px;
+    background-color: #fff;
+}
+
+.userProfileImage {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: #ddd;
+}
+
+#userEmailLabel, #userBioLabel, #userCreatedLabel, #userActiveLabel {
+    display: block;
+    color: #444;
+    padding-top: 3px;
+}
+
+#userName {
+    display: block;
+    color: #2569d5;
+    font-size: 1.7em;
+}
+
+.userProfilePic {
+    height: 140px;
+    width: 140px;
+}
+
+#userProfileImage {
+    background-size: 100%;
+    width: 200px;
+    height: 200px;
+}
+
+.fillSquare {
+    background-size: 100%;
+}
+
+/* Comment */
+.commentContent {
+    display: table;
+    background-color: white;
+    width: inherit;
+}
+
+#threadCommentRow {
+    background-color: #3F51B5;
+    padding: 8px;
+}
+
+.commentContentContainer, .commentAuthorContainer {
+    display: table-cell;
+    padding: 12px;
+}
+
+.isAdmin {
+    display: inline-block;
+    padding: 3px;
+    background-color: #FFEB3B;
+    color: #000;
+}
+
+.smaller {
+    font-size: 0.8em;
+}
+/* Account */
+.account-span {
+    display: inline-block;
+    text-align: center;
+    width: 400px;
+}
+
+.editDelContainer
+{
+    padding-right: 0px;
+    padding-left: 35px;
+}
+/*wrapping element*/
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}

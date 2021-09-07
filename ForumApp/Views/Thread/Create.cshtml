@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Create Thread";
+}
+
+@model ForumApp.ViewModels.Thread.CreateThreadModel
+
+<div class="container body-content">
+    <div class="sectionHeader">
+        <div class="sectionHeading noBorder">
+            New Thread | @Model.ChannelName
+            <div class="channelLogo" style="background-image: url(@Model.ChannelImageLink); background-size:100%"></div>
+            <span id="headingBtn"><a asp-controller="Channel" asp-action="Topic" asp-route-id="@Model.ChannelId" class="btn btn-back">Back to @Model.ChannelName</a></span>
+        </div>
+    </div>
+    @if (!Context.User.Identity.IsAuthenticated)
+    {
+        <div>
+            <div id="channelIndexContent">
+                <div class="register">You must be a <a asp-controller="Account" asp-action="Register">registered member</a> to create a new thread.</div>
+            </div>
+        </div>
+    }
+    @if (Context.User.Identity.IsAuthenticated)
+    {
+        <div>
+            <div class="createThreadSection">
+                <div class="authorBlock">
+                    You're submitting this thread as <span class="authorBlockName">@Model.AuthorName</span>
+                </div>
+                <form asp-action="Create" method="post" id="addThreadForm">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Content">Thread Content</label>
+                        <textarea asp-for="Content" rows="20" class="form-control" placeholder="Write your content here."></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                    <button type="submit" id="registerBtn" class="btn btn-submitThread">Submit Thread</button>
+                    <input asp-for="AuthorId" type="hidden" />
+                    <input asp-for="ChannelName" type="hidden" />
+                    <input asp-for="ChannelId" type="hidden" />
+                </form>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,111 @@
+﻿@model ForumApp.ViewModels.Channel.ChannelTopicModel
+
+@{
+    ViewBag.Title = Model.Channel.Title + "password";
+}
+
+<div class="container body-content">
+    <div class="sectionHeader">
+        <div class="sectionHeading">
+            <span id="results">@Model.Channel.Title Channel</span>
+            @if (Context.User.Identity.IsAuthenticated && Model.IsCurrentUserActive)
+            {
+                <span id="headingBtn"><a asp-controller="Thread" asp-action="Create" asp-route-id="@Model.Channel.Id" class="btn btn-newThread">Create Thread</a></span>
+            }
+            <form asp-controller="Channel" asp-action="Search" method="post">
+                <div class="searchForm">
+                    <input asp-for="Query" type="text" placeholder="Search..." class="searchBar" onfocus="clearThis(this)">
+                    <button type="submit" class="btn buttonSearch">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+                <input asp-for="Channel.Id" name="id" type="hidden" />
+            </form>
+        </div>
+        <div class="sectionDescription">
+            <div class="channelLogo" style="background-image: url(@Model.Channel.ImageLink); background-size:100%"></div>
+            <p>Welcome to the <strong>@Model.Channel.Title</strong> channel. Please keep threads friendly and on-topic.</p>
+            <p>
+                @if (!Context.User.Identity.IsAuthenticated)
+                {
+                    <span>You must be a <a asp-controller="Account" asp-action="Register">registered member</a> to create a new thread.</span>
+                }
+            </p>
+        </div>
+    </div>
+    <div id="channelIndexContent">
+        @if (Model.Threads.Any())
+        {
+            <table class="table table-hover table-bordered" id="channelIndexTable">
+                <tbody>
+                    @foreach (var thread in Model.Threads)
+                    {
+                        <tr>
+                            <td>
+                                <div class="threadData">
+                                    <div class="threadTitle">
+                                        <a asp-controller="Thread" asp-action="Index" asp-route-id="@thread.Id">@thread.Title</a>
+                                    </div>
+                                    <div class="threadSubTitle">
+                                        <div>
+                                            <span class="threadAuthor">
+                                                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@thread.AuthorId">
+                                                    @thread.AuthorName
+                                                </a>
+                                            </span>
+                                            <span class="threadDate">
+                                                @thread.Posted
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cahnnelThreadCount">
+                                    Comments: @thread.CommentsCount
+                                </div>
+                            </td>
+                            <td>
+                                <div class="threadDate">@thread.Posted</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else if (@Model.HasResults)
+        {
+            <div class="noThreads">
+                <i class="material-icons md-72">question_answer</i>
+                <h3>
+                    No search results found for @Model.Query! <br />
+                </h3>
+            </div>
+
+        }
+
+        else if (!@Model.Threads.Any())
+        {
+        <div class="noThreads">
+            <h3>
+                It looks like there are no @Model.Channel.Title threads yet.
+            </h3>
+            @if (Model.IsCurrentUserActive)
+            {
+                <h3>
+                    <br />
+                    Why not <a asp-controller="Thread" asp-action="Create" asp-route-id="@Model.Channel.Id"><span>Create One?</span></a>
+                </h3>
+            }
+        </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+    </script>
+}

@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Threads";
+}
+
+@model ForumApp.ViewModels.Thread.ThreadIndexModel
+
+<div class="container body-content">
+    <div class="row threadHeader" style="display:block;">
+        <div class="threadHeading">
+            <span class="threadIndexTitle">
+                @Model.Thread.Title
+            </span>
+            <span id="headingBtn"><a asp-controller="Channel" asp-action="Topic" asp-route-id="@Model.Thread.ChannelId" class="btn btn-back">Back to @Model.Thread.ChannelName</a></span>
+        </div>
+    </div>
+
+    <div class="row" id="threadIndexContent">
+        <div class="col-md-3 threadAuthorContainer">
+            <div class="threadAuthorImage" style="background-image: url(@Model.Thread.AuthorImageLink); background-size: 100%;"></div>
+            <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.Thread.AuthorId">
+                <strong>@Model.Thread.AuthorName</strong>
+            </a>
+            <span class="threadDate">@Model.Thread.Posted</span>
+            @if (@Model.Thread.IsAuthorAdmin)
+            {
+                <span class="isAdmin smaller">Admin</span>
+            }
+        </div>
+        <div class="col-md-9 threadContentContainer">
+            <div class="threadContent">
+                @Html.Raw(@Model.Thread.ThreadContent)
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="commentDivider"></div>
+    @if (Context.User.Identity.IsAuthenticated && Model.IsCurrentUserActive)
+    {
+        <div class="row" id="commentRow">
+            <span><a asp-controller="Comment" asp-action="Create" asp-route-id="@Model.Thread.Id" class="btn btn-newComment">Post Comment</a></span>
+        </div>
+    }
+    @if (Model.Comments.Any())
+    {
+        foreach (var comment in Model.Comments)
+        {
+            <div class="row">
+                <div class="col-md-3 commentAuthorContainer">
+                    <div class="threadAuthorImage" style="background-image: url(@comment.AuthorImageLink); background-size: 100%;"></div>
+                    <a asp-controller="Profile" asp-action="Detail" asp-route-id="@comment.AuthorId">
+                        <strong>@comment.AuthorName</strong>
+                    </a>
+                    @if (comment.IsAuthorAdmin)
+                    {
+                        <div class="isAdmin profileLabel smaller">Admin</div>
+                        <br />
+                    }
+                    <span class="threadDate">@comment.Posted</span>
+                </div>
+                <div class="col-md-9 commentContentContainer">
+                    <div class="commentContent">
+                        @Html.Raw(comment.CommentContent)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="noThreads">
+            <h3>
+                There are no comments to this thread.<br />
+            </h3>
+        </div>
+    }
+</div>

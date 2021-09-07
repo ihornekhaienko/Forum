@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "My Profile";
+}
+
+@using Microsoft.AspNetCore.Identity
+@model ForumApp.ViewModels.Profile.ProfileViewModel
+
+@inject UserManager<ForumApp.Models.ApplicationUser> UserManager
+
+<div class="container body-content">
+    <div class="sectionHeader">
+        <div class="sectionHeading noBorder" style="margin-bottom:0px;">
+            User Profile
+        </div>
+        <br />
+        @if (User.IsInRole("Admin") && User.Identity.Name != Model.UserName)
+        {
+            <div class="row">
+                @if (!Model.IsAdmin)
+                {
+                    @if (Model.IsActive)
+                    {
+                        <form method="post" asp-controller="Profile" asp-action="Ban" asp-route-id="@Model.UserId">
+                            <span>
+                                <button class="btn btn-danger" active="@Model.IsActive">Ban User</button>
+                            </span>
+                        </form>
+                    }
+
+                    else
+                    {
+                        <form method="post" asp-controller="Profile" asp-action="Unban" asp-route-id="@Model.UserId">
+                            <span>
+                                <button class="btn btn-success" active="@Model.IsActive">Unban User</button>
+                            </span>
+                        </form>
+                    }
+
+                    <form method="post" asp-controller="Profile" asp-action="MakeAdmin" asp-route-id="@Model.UserId">
+                        <span style="margin-left:15px">
+                            <button class="btn btn-success" active="@Model.IsActive">Make Admin</button>
+                        </span>
+                    </form>
+                }
+            </div>
+        }
+</div>
+    @if (Context.User.Identity.IsAuthenticated)
+    {
+        <div class="row userProfile">
+            <div class="col-md-4">
+                <div class="userProfileImage" style="background-image: url(@Model.ProfileImageLink); background-size:100%;"></div>
+                @if (Context.User.Identity.Name == Model.UserName)
+                {
+                    <form method="post" enctype="multipart/form-data" asp-controller="Profile" asp-action="UploadProfileImage">
+                        <div id="upload">
+                            <label class="btn btn-default btn-file">
+                                Browse <input type="file" name="file" style="display: none;">
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                }
+            </div>
+            <div class="col-md-8">
+                <span id="userName">@Model.UserName</span>
+                @if (@Model.IsAdmin)
+                {
+                    <span class="isAdmin">Admin</span>
+                }
+                <span id="userEmailLabel">Email: @Model.Email</span>
+                <span id="userCreatedLabel">Member Since: @Model.CreateAt</span>
+                <span id="userActiveLabel">
+                    Status:
+                    @if (!@Model.IsActive)
+                    {
+                        <span class="inactiveUser">Inactive</span>
+                    }
+                    else
+                    {
+                        <span>Active</span>
+                    }
+                </span>
+            </div>
+        </div>
+    }
+</div>
